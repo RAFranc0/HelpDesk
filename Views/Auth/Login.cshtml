@@ -1,0 +1,43 @@
+﻿@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Login Page";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/loginview.css">
+}
+
+<div class="container" id="login-container">
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="card p-2">
+            <h5 class="card-title">Acesso ao painel de Ticket</h5>
+            <p class="card-text">Utilize suas credênciais para acessar o painel</p>
+            <form asp-controller="Auth" asp-action="Login" method="post">
+                
+                @if (!ViewData.ModelState.IsValid && ViewData.ModelState[""].Errors.Count > 0)
+                {
+                    <div class="alert alert-danger py-2 small rounded">
+                        <i class="bi bi-exclamation-triangle me-1"></i>
+                        @ViewData.ModelState[""].Errors[0].ErrorMessage
+                    </div>
+                }
+                
+                <div class="mb-3">
+                    <label for="usernameInput" class="form-label">Login</label>
+                    <input asp-for="@Model.Username" type="text" class="form-control" id="usernameInput" aria-describedby="usernameHelp">
+                    <div id="usernameHelp" class="form-text">Digite seu login</div>
+                </div>
+                <div class="mb-3">
+                    <label for="passwordInput" class="form-label">Senha</label>
+                    <input asp-for="@Model.Password" type="password" class="form-control" id="passwordInput" aria-describedby="passwordHelp">
+                    <div id="passwordHelp" class="form-text">A senha digitada deve ter de 8 à 20 caracteres</div>
+                </div>
+                <div class="text-end">
+                    <a class="btn btn-outline-secondary" asp-controller="Tickets" asp-action="Index">Voltar</a>
+                    <button type="submit" class="btn btn-dark">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
